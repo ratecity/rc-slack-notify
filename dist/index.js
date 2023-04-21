@@ -9841,7 +9841,7 @@ async function run() {
       body: JSON.stringify(data),
       headers: {'Content-Type': 'application/json'}
     });
-    if (response.ok !== 'true') {
+    if (!response.ok) {
       core.setFailed(`Send slack notification failed, ${response.statusText}`)
     }
   } catch (error) {
