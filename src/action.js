@@ -16,7 +16,31 @@ async function run() {
       attachments: [
           {
               color: slackColor,
-              text: "`swift-client` test successfully"
+              author_name: payload.sender.login,
+              author_link: payload.sender.html_url,
+              author_icon: payload.sender.avatar_url,
+              fields: [
+                  {
+                      title: "Ref",
+                      value: github.context.ref,
+                      short: true
+                  },
+                  {
+                      title: "Event",
+                      value: github.context.eventName,
+                      short: true
+                  },
+                  {
+                      title: "Actions URL",
+                      value: `<${github.context.serverUrl}/${payload.repository.full_name}/commit/${payload.pull_request.head.sha}/checks|${github.context.workflow}>`,
+                      short: true
+                  },
+                  {
+                      title: "Pull Request",
+                      value: `<${payload.pull_request.html_url}|${payload.pull_request.number}>`,
+                      short: true
+                  }
+              ]
           }
       ]
     }
@@ -26,10 +50,9 @@ async function run() {
       body: JSON.stringify(data),
       headers: {'Content-Type': 'application/json'}
     });
-    console.log('result', response.ok)
-    // Get the JSON webhook payload for the event that triggered the workflow
-    const body = JSON.stringify(github.context.payload, undefined, 2)
-    console.log(`The event payload: ${body}`);
+    if (!response.ok) {
+      core.setFailed(`Send slack notification failed, ${response.statusText}`)
+    }
   } catch (error) {
     core.setFailed(error.message);
   }
