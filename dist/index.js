@@ -9818,7 +9818,7 @@ async function run() {
                   },
                   {
                       title: "Event",
-                      value: payload.context.eventName,
+                      value: github.context.eventName,
                       short: true
                   },
                   {
