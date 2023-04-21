@@ -9817,8 +9817,7 @@ async function run() {
       body: JSON.stringify(data),
       headers: {'Content-Type': 'application/json'}
     });
-    const result = await response.json();
-    console.log('result', result)
+    console.log('result', response.ok)
     // Get the JSON webhook payload for the event that triggered the workflow
     const body = JSON.stringify(github.context.payload, undefined, 2)
     console.log(`The event payload: ${body}`);
