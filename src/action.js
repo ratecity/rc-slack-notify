@@ -50,10 +50,9 @@ async function run() {
       body: JSON.stringify(data),
       headers: {'Content-Type': 'application/json'}
     });
-    console.log('result', response.ok)
-    // Get the JSON webhook payload for the event that triggered the workflow
-    const body = JSON.stringify(github.context, undefined, 2)
-    console.log(`The event payload: ${body}`);
+    if (response.ok !== 'true') {
+      core.setFailed(`Send slack notification failed, ${response.statusText}`)
+    }
   } catch (error) {
     core.setFailed(error.message);
   }
