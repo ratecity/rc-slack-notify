@@ -9858,7 +9858,7 @@ async function run() {
       core.setFailed(`Send slack notification failed, ${response.statusText}`)
     }
   } catch (error) {
-    core.setFailed(error.message);
+    core.setFailed(`Send slack notification error: ${error.message}`);
   }
 }
 
