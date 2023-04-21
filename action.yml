@@ -1,0 +1,12 @@
+name: 'Rc Slack Notify'
+description: 'RateCity slack notificaion to new pull requests'
+author: 'Bo Yuan'
+
+inputs:
+  GITHUB_TOKEN:
+    description: 'GitHub token'
+    required: true
+
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
