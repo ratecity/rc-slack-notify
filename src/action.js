@@ -7,7 +7,20 @@ async function run() {
     const slackChannel = `#${core.getInput('SLACK_CHANNEL')}`
     const slackWebhook = core.getInput('SLACK_WEBHOOK')
     const slackUsername = core.getInput('SLACK_USERNAME')
-    const slackColor = core.getInput('SLACK_COLOR');
+    let slackColor = '';
+    switch (core.getInput('SLACK_COLOR')) {
+      case 'success':
+        slackColor = 'good'
+        break
+      case 'cancelled':
+        slackColor = '#808080'
+        break
+      case 'failure':
+        slackColor = 'danger'
+        break
+      default:
+        slackColor = 'good'
+    }
     const { payload = {} } = github.context
     const data = {
       channel: slackChannel,

@@ -16,7 +16,7 @@ inputs:
   SLACK_COLOR:
     description: 'Slack color'
     required: true
-    default: 'good'
+    default: 'success'
 
 runs:
   using: 'node16'
