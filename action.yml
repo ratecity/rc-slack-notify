@@ -6,6 +6,10 @@ inputs:
   GITHUB_TOKEN:
     description: 'GitHub token'
     required: true
+  SLACK_COLOR:
+    description: 'Slack color'
+    require: true
+    default: 'good'
 
 runs:
   using: 'node16'
