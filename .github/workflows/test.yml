@@ -8,3 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: ./
+        with:
+          SLACK_CHANNEL: ${{ secrets.SLACK_CHANNEL }}
+          SLACK_USERNAME: ${{ secrets.SLACK_USERNAME }}
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}

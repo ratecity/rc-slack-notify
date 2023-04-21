@@ -3,12 +3,19 @@ description: 'RateCity slack notificaion to new pull requests'
 author: 'Bo Yuan'
 
 inputs:
-  GITHUB_TOKEN:
-    description: 'GitHub token'
+  SLACK_WEBHOOK:
+    description: 'Slack webhook'
+    required: true
+  SLACK_USERNAME:
+    description: 'Slack username'
+    required: true
+    default: 'rcbot'
+  SLACK_CHANNEL:
+    description: 'Slack channel'
     required: true
   SLACK_COLOR:
     description: 'Slack color'
-    require: true
+    required: true
     default: 'good'
 
 runs:
