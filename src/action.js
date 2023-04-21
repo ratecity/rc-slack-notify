@@ -22,23 +22,23 @@ async function run() {
               fields: [
                   {
                       title: "Ref",
-                      value: "refs/heads/develop",
+                      value: github.context.ref,
                       short: true
                   },
                   {
-                      "title": "Event",
-                      "value": "pull_request_target",
-                      "short": true
+                      title: "Event",
+                      value: payload.context.eventName,
+                      short: true
                   },
                   {
-                      "title": "Actions URL",
-                      "value": "<https://github.com/ratecity/swift-client/commit/c767b1e24f60eab3d029f5e701dcf7fa6466b412/checks|staging-test-cases>",
-                      "short": true
+                      title: "Actions URL",
+                      value: `<${github.context.serverUrl}/${payload.repository.full_name}/commit/${payload.pull_request.head.sha}/checks|${github.context.workflow}>`,
+                      short: true
                   },
                   {
-                      "title": "Pull Request",
-                      "value": `<${payload.pull_request.html_url}|${payload.pull_request.number}>`,
-                      "short": true
+                      title: "Pull Request",
+                      value: `<${payload.pull_request.html_url}|${payload.pull_request.number}>`,
+                      short: true
                   }
               ]
           }
@@ -52,7 +52,7 @@ async function run() {
     });
     console.log('result', response.ok)
     // Get the JSON webhook payload for the event that triggered the workflow
-    const body = JSON.stringify(github, undefined, 2)
+    const body = JSON.stringify(github.context, undefined, 2)
     console.log(`The event payload: ${body}`);
   } catch (error) {
     core.setFailed(error.message);
