@@ -9798,6 +9798,10 @@ async function run() {
     const slackChannel = `#${core.getInput('SLACK_CHANNEL')}`
     const slackWebhook = core.getInput('SLACK_WEBHOOK')
     const slackUsername = core.getInput('SLACK_USERNAME')
+    const slackSuccessMessage = core.getInput('SLACK_SUCCESS_MESSAGE')
+    const slackFailMessage = core.getInput('SLACK_FAILURE_MESSAGE')
+    const slackIcon = core.getInput('SLACK_ICON') || 'https://avatars0.githubusercontent.com/u/43742164'
+
     let slackColor = '';
     switch (core.getInput('SLACK_COLOR')) {
       case 'success':
@@ -9813,39 +9817,41 @@ async function run() {
         slackColor = 'good'
     }
     const { payload = {} } = github.context
+
     const data = {
       channel: slackChannel,
       username: slackUsername,
-      icon_url: "https://avatars0.githubusercontent.com/u/43742164",
+      icon_url: slackIcon,
+      text: slackColor === 'good' ? slackSuccessMessage : slackFailMessage,
       attachments: [
-          {
-              color: slackColor,
-              author_name: payload.sender.login,
-              author_link: payload.sender.html_url,
-              author_icon: payload.sender.avatar_url,
-              fields: [
-                  {
-                      title: "Ref",
-                      value: github.context.ref,
-                      short: true
-                  },
-                  {
-                      title: "Event",
-                      value: github.context.eventName,
-                      short: true
-                  },
-                  {
-                      title: "Actions URL",
-                      value: `<${github.context.serverUrl}/${payload.repository.full_name}/commit/${payload.pull_request.head.sha}/checks|${github.context.workflow}>`,
-                      short: true
-                  },
-                  {
-                      title: "Pull Request",
-                      value: `<${payload.pull_request.html_url}|${payload.pull_request.number}>`,
-                      short: true
-                  }
-              ]
-          }
+        {
+          color: slackColor,
+          author_name: payload.sender.login,
+          author_link: payload.sender.html_url,
+          author_icon: payload.sender.avatar_url,
+          fields: [
+            {
+              title: "Ref",
+              value: github.context.ref,
+              short: true
+            },
+            {
+              title: "Event",
+              value: github.context.eventName,
+              short: true
+            },
+            {
+              title: "Actions URL",
+              value: `<${github.context.serverUrl}/${payload.repository.full_name}/commit/${payload.pull_request.head.sha}/checks|${github.context.workflow}>`,
+              short: true
+            },
+            {
+              title: "Pull Request",
+              value: `<${payload.pull_request.html_url}|${payload.pull_request.number}>`,
+              short: true
+            }
+          ],
+        }
       ]
     }
     
