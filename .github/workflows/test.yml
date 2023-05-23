@@ -17,4 +17,4 @@ jobs:
           SLACK_SUCCESS_MESSAGE: ${{ secrets.SLACK_SUCCESS_MESSAGE }}
           SLACK_FAILURE_MESSAGE: ${{ secrets.SLACK_FAILURE_MESSAGE }}
           SLACK_ICON: ${{ secrets.SLACK_ICON }}
-          SLACK_COLOR: failure
+          SLACK_COLOR: success
