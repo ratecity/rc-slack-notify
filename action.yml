@@ -16,6 +16,15 @@ inputs:
   SLACK_COLOR:
     description: 'Slack color'
     required: true
+  SLACK_SUCCESS_MESSAGE:
+    description: 'Slack success message'
+    required: false
+  SLACK_FAILURE_MESSAGE:
+    description: 'Slack failure message'
+    required: false
+  SLACK_ICON:
+    description: 'Slack icon'
+    required: false
 
 runs:
   using: 'node16'
